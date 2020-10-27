@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: Trinity
+## Author: b2basic
+## Version: 1.0
+
+interface/hide.lua
+interface/move.lua
+interface/parent.lua
+interface/scale.lua
+
+gameplay/targets.lua
+gameplay/abilities.lua
