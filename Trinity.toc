@@ -10,3 +10,5 @@ interface/scale.lua
 
 gameplay/targets.lua
 gameplay/abilities.lua
+
+global.lua

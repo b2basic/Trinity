@@ -1,3 +1,5 @@
+local trinity = select (2, ...)
+
 local hides =
 {
     { frame = PlayerFrame },
@@ -17,27 +19,16 @@ local hides =
     { frame = MultiBarRight }
 }
 
-local doHide = function()
+trinity['hide'] = function()
     for k, hide in pairs (hides) do
         hide['frame']:Hide()
         if hide['suppressShow'] then hide['frame']:SetScript ('OnShow', function (self) self:Hide() end) end
     end
 end
 
-local undoHide = function()
+trinity['unhide'] = function()
     for k, hide in pairs (hides) do
         if hide['suppressShow'] then hide['frame']:SetScript ('OnShow', hide['onShow']) end
         if not hide['dontReveal'] then hide['frame']:Show() end
     end
 end
-
-local hidden = false
-
-local trinityHideFrame = CreateFrame ('Frame')
-trinityHideFrame:SetScript ('OnKeyDown', function (self, key)
-    if key == 'TAB' then
-        if hidden then undoHide() hidden = false
-        else doHide() hidden = true end
-    end
-end)
-trinityHideFrame:SetPropagateKeyboardInput (true)

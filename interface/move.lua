@@ -1,3 +1,5 @@
+local trinity = select (2, ...)
+
 local moves =
 {
     { frame = BuffFrame, points = { {'TOPRIGHT', WorldFrame, 'TOPRIGHT', -10, -10 } } }
@@ -10,7 +12,7 @@ for k, move in pairs (moves) do
     end
 end
 
-local doMoves = function()
+trinity['move'] = function()
     for k, move in pairs (moves) do
         move['frame']:ClearAllPoints()
         for k, point in pairs (move['points']) do
@@ -19,7 +21,7 @@ local doMoves = function()
     end
 end
 
-local undoMoves = function()
+trinity['unmove'] = function()
     for k, move in pairs (moves) do
         move['frame']:ClearAllPoints()
         for k, point in pairs (move['defaultPoints']) do
@@ -27,14 +29,3 @@ local undoMoves = function()
         end
     end
 end
-
-local moved = false
-
-local trinityMoveFrame = CreateFrame ('Frame')
-trinityMoveFrame:SetScript ('OnKeyDown', function (self, key)
-    if key == 'TAB' then
-        if moved then undoMoves() moved = false
-        else doMoves() moved = true end
-    end
-end)
-trinityMoveFrame:SetPropagateKeyboardInput (true)
