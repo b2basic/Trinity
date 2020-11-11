@@ -3,11 +3,11 @@ local trinity = select (2, ...)
 local hides =
 {
     { frame = PlayerFrame },
-    { frame = TargetFrame, suppressShow = true, dontReveal = true },
-    { frame = FocusFrame, suppressShow = true, dontReveal = true },
+    { frame = TargetFrame, dontReveal = true },
+    { frame = FocusFrame, dontReveal = true },
     { frame = MinimapCluster },
     { frame = ObjectiveTrackerFrame },
-    { frame = ChatFrame1, suppressShow = true, onShow = ChatFrame1:GetScript ('OnShow') },
+    { frame = ChatFrame1 },
     { frame = ChatFrame1EditBox },
     { frame = ChatFrame1EditBox },
     { frame = GeneralDockManager },
@@ -19,16 +19,21 @@ local hides =
     { frame = MultiBarRight }
 }
 
+for k, hide in pairs (hides) do
+    hide['OnEvent'] = hide['frame']:GetScript ('OnEvent')
+end
+
 trinity['hide'] = function()
     for k, hide in pairs (hides) do
-        hide['frame']:Hide()
-        if hide['suppressShow'] then hide['frame']:SetScript ('OnShow', function (self) self:Hide() end) end
+        RegisterAttributeDriver (hide['frame'], "state-visibility", "hide")
+        hide['frame']:SetScript ('OnEvent', nil)
     end
 end
 
 trinity['unhide'] = function()
     for k, hide in pairs (hides) do
-        if hide['suppressShow'] then hide['frame']:SetScript ('OnShow', hide['onShow']) end
+        RegisterAttributeDriver (hide['frame'], "state-visibility", "")
+        hide['frame']:SetScript ('OnEvent', hide['OnEvent'])
         if not hide['dontReveal'] then hide['frame']:Show() end
     end
 end
