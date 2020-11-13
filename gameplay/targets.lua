@@ -53,7 +53,7 @@ TrinitySetFocusButton:SetAttribute ('unit', 'mouseover')
 
 trinity['target'] = function()
 	trinity['targetUnits'][3] = nil
-	SetBinding ('SHIFT-BUTTON1', 'CLICK TrinitySetFocusButton:LeftButton')
+	SetBinding ('CTRL-BUTTON1', 'CLICK TrinitySetFocusButton:LeftButton')
 	attachTextures()
 end
 

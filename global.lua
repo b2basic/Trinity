@@ -4,6 +4,7 @@ trinity['trinitied'] = false
 
 local frame = CreateFrame ('Frame')
 frame:SetScript ('OnKeyDown', function (self, key)
+    if InCombatLockdown() then return end
     if key == 'TAB' then
         if trinity['trinitied'] then
             trinity['unhide']()
@@ -11,6 +12,7 @@ frame:SetScript ('OnKeyDown', function (self, key)
             trinity['unparent']()
             trinity['unscale']()
             trinity['untarget']()
+            trinity['unabilities']()
             trinity['trinitied'] = false
         else
             trinity['hide']()
@@ -18,6 +20,7 @@ frame:SetScript ('OnKeyDown', function (self, key)
             trinity['parent']()
             trinity['scale']()
             trinity['target']()
+            trinity['abilities']()
             trinity['trinitied'] = true
         end
     end
