@@ -1,6 +1,8 @@
 local trinity = select (2, ...)
 
 trinity['trinitied'] = false
+trinity['mods'] = { target = 'SHIFT', focus = 'CTRL', other = 'ALT-CTRL' }
+trinity['keys'] = { [1] = '´', [2] = '+', [3] = '#' }
 
 local frame = CreateFrame ('Frame')
 frame:SetScript ('OnKeyDown', function (self, key)
